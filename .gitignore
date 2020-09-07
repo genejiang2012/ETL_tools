@@ -1,0 +1,18 @@
+# ignore vscode config
+.vscode/
+.idea/
+
+# ignore node modules
+node_modules/
+
+# ignore the dist files
+dist/
+src/reports/
+
+# ignore the files
+*.zip
+*.png
+*.swp
+*.csv
+
+

@@ -1,0 +1,2 @@
+# ossutil cp -r /Users/admin/Documents/work/上传文件/ oss://xufang-olap-demo
+[Error] 2019/05/24 17:52:32 upload /Users/admin/Documents/work/上传文件/audience测试文件 to oss://xufang-olap-demo/audience测试文件/ error, info: Put http://xufang-olap-demo.oss-cn-beijing.aliyuncs.com/audience%E6%B5%8B%E8%AF%95%E6%96%87%E4%BB%B6%2F: http: server closed idle connection, Bucket=xufang-olap-demo, Object=audience测试文件/

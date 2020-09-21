@@ -8,13 +8,13 @@ import time
 import faker
 import my_data
 
-BASIC_LIST = ['order_id', 'ssn', 'phone_number', 'open_id', 'ipv4', 'IDFA',
-              'IMEI', 'genders', 'email', 'province', 'city', 'address', 'job',
-              'date',  'order_price', 'discount', 'actual_payment']
+# BASIC_LIST = ['order_id', 'ssn', 'phone_number', 'open_id', 'ipv4', 'IDFA', 'app'
+#               'IMEI', 'genders', 'email', 'province', 'city', 'address', 'job',
+#               'date', 'month', 'order_price', 'discount', 'actual_payment']
 
 
-# BASIC_LIST = ['ssn', 'phone_number', 'ipv4', 'app', 'genders', 'province',
-#               'city', 'date', 'counter']
+BASIC_LIST = ['ssn', 'phone_number', 'ipv4', 'app', 'genders', 'province',
+              'city', 'date', 'month', 'counter']
 
 
 class DataFaker():

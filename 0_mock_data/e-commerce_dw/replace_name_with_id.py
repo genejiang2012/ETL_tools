@@ -14,7 +14,7 @@ def merge_csv(first_file, second_file, how='left', on='product'):
 
 
 fact_df = read_csv("./order/order_data.csv")
-# print(fact_df.head(10))
+# print(fact_df.columns)
 all_df_list.append(fact_df)
 
 dim_product_df = read_csv("./order/dim_product.csv")
@@ -25,8 +25,14 @@ dim_price_df = read_csv("./order/dim_price.csv")
 all_df_list.append(dim_price_df)
 
 # dim_province_city_df = read_csv("./order/dim_province_city.csv")
-dim_create_date_df = read_csv("./order/dim_date_create.csv")
-print(dim_create_date_df.head(10))
+dim_create_date_df = read_csv("./order/dim_date.csv")
+# print(dim_create_date_df.head(10))
+
+dim_province_city = pd.read_csv('./order/dim_province_city.csv'
+                                , dtype='object')
+
+dim_channel_store_df = read_csv('./order/dim_channel_store.csv')
+print(dim_channel_store_df.head(10))
 
 # print(all_df_list, len(all_df_list))
 
@@ -50,7 +56,27 @@ merge_fact_price_product = pd.merge(merge_fact_price, dim_product_df,
                                     right_on='product')
 merge_fact_price_product_date = pd.merge(merge_fact_price_product,
                                          dim_create_date_df,
-                                         how='left', left_on='create_date',
-                                         right_on='create_date')
-# print(merge_fact_price_product_date.head(10))
-# merge_fact_price_product_date.to_csv("finial.csv", index=None)
+                                         on=['operate_date', 'create_date'])
+merge_province = pd.merge(merge_fact_price_product_date, dim_province_city, on=['province', 'city'])
+merge_store_channel = pd.merge(merge_province, dim_channel_store_df, how='left',on=['channel', 'store'])
+merge_store_channel.head(10)
+merge_store_channel.to_csv('1.csv', index=None)
+
+df_after_drop = merge_store_channel.drop(columns=['product', 'province', 'city','create_date',
+                                             'operate_date','product', 'order_price','store', 'channel'])
+
+# df_after_drop.head(10)
+
+finial_df = df_after_drop.rename(columns={'product_id': 'product',
+                               'create_date_id':'create',
+                               'operate_date_id':'operate',
+                               'province_id':'province',
+                               'city_id':'city',
+                                'store_id':'store',
+                                'channel_id':'channel'})
+
+finial_df.head(10)
+print(merge_province.head(1))
+print(merge_fact_price_product_date.head(10))
+print(merge_fact_price_product_date.shape)
+finial_df.to_csv("finial.csv", index=None)

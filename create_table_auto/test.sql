@@ -1,1 +1,1 @@
-CREATE TABLE order_analysis (product_id  string COMMENT  "产品ID", product  string COMMENT  "产品") comment  "订单"  PARTITIONED BY (`dt` string) ;
+CREATE TABLE order_analysis (store  string COMMENT  "店") comment  "订单"  PARTITIONED BY (`dt` string) ;

@@ -31,8 +31,10 @@ dim_create_date_df = read_csv("./order/dim_date.csv")
 dim_province_city = pd.read_csv('./order/dim_province_city.csv'
                                 , dtype='object')
 
-dim_channel_store_df = read_csv('./order/dim_channel_store.csv')
-print(dim_channel_store_df.head(10))
+dim_channel_df = read_csv('./order/dim_channel.csv')
+
+dim_store_df = read_csv('./order/dim_store.csv')
+print(dim_channel_df.head(10))
 
 # print(all_df_list, len(all_df_list))
 
@@ -57,23 +59,28 @@ merge_fact_price_product = pd.merge(merge_fact_price, dim_product_df,
 merge_fact_price_product_date = pd.merge(merge_fact_price_product,
                                          dim_create_date_df,
                                          on=['operate_date', 'create_date'])
-merge_province = pd.merge(merge_fact_price_product_date, dim_province_city, on=['province', 'city'])
-merge_store_channel = pd.merge(merge_province, dim_channel_store_df, how='left',on=['channel', 'store'])
-merge_store_channel.head(10)
-merge_store_channel.to_csv('1.csv', index=None)
+merge_province = pd.merge(merge_fact_price_product_date, dim_province_city,
+                          on=['province', 'city'])
+merge_channel = pd.merge(merge_province, dim_channel_df,
+                         on=['channel'])
+merge_store = pd.merge(merge_channel, dim_store_df, on=['store'])
+merge_channel.head(10)
+merge_store.to_csv('1.csv', index=None)
 
-df_after_drop = merge_store_channel.drop(columns=['product', 'province', 'city','create_date',
-                                             'operate_date','product', 'order_price','store', 'channel'])
+df_after_drop = merge_store.drop(
+    columns=['product', 'province', 'city', 'create_date',
+             'operate_date', 'product', 'price', 'order_price', 'store', 'channel'])
 
 # df_after_drop.head(10)
 
 finial_df = df_after_drop.rename(columns={'product_id': 'product',
-                               'create_date_id':'create',
-                               'operate_date_id':'operate',
-                               'province_id':'province',
-                               'city_id':'city',
-                                'store_id':'store',
-                                'channel_id':'channel'})
+                                          'create_date_id': 'create',
+                                          'operate_date_id': 'operate',
+                                          'province_id': 'province',
+                                          'city_id': 'city',
+                                          'store_id': 'store',
+                                          'channel_id': 'channel',
+                                          'price_id':'price'})
 
 finial_df.head(10)
 print(merge_province.head(1))

@@ -5,6 +5,11 @@ from functools import reduce
 
 all_df_list = []
 
+field = [
+        'id', 'name', 'phone_number', 'store', 'channel', 'province', 'city',
+        'address', 'create', 'operate', 'product', 'price', 'discount',
+        'actual_payment']
+
 
 def read_csv(file_name: str, sep=',', index_col=None):
     return pd.read_csv(file_name, sep, index_col, dtype='object')
@@ -46,19 +51,20 @@ if __name__ == '__main__':
     print(fourth_df.head)
 
     df_after_drop = fourth_df.drop(
-    columns=['product', 'province', 'city', 'create_date',
-             'operate_date', 'product', 'price', 'price', 'store', 'channel'])
+        columns=['product', 'province', 'city', 'create_date',
+                 'operate_date', 'product', 'price', 'price', 'store',
+                 'channel'])
 
     df_after_drop.head(10)
 
     finial_df = df_after_drop.rename(columns={'product_id': 'product',
-                                          'create_date_id': 'create',
-                                          'operate_date_id': 'operate',
-                                          'province_id': 'province',
-                                          'city_id': 'city',
-                                          'store_id': 'store',
-                                          'channel_id': 'channel',
-                                          'price_id':'price'})
-#
-
-    write_csv(finial_df, "finial_id1.csv")
+                                              'create_date_id': 'create',
+                                              'operate_date_id': 'operate',
+                                              'province_id': 'province',
+                                              'city_id': 'city',
+                                              'store_id': 'store',
+                                              'channel_id': 'channel',
+                                              'price_id': 'price'})
+    #
+    finial_df = finial_df[field]
+    write_csv(finial_df, "finial_id2.csv")

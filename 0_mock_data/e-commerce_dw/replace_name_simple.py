@@ -3,12 +3,15 @@ import csv
 import pandas as pd
 from functools import reduce
 
-all_df_list = []
-
 field = [
-        'id', 'name', 'phone_number', 'store', 'channel', 'province', 'city',
-        'address', 'create', 'operate', 'product', 'price', 'discount',
-        'actual_payment']
+    'id', 'name', 'phone_number', 'store', 'channel', 'province', 'city',
+    'address', 'create', 'operate', 'product', 'price', 'discount',
+    'actual_payment']
+
+on_list = [['create_date', 'operate_date'], 'price', 'product',
+           ['province', 'city'], ['channel', 'store']]
+
+all_df_list = []
 
 
 def read_csv(file_name: str, sep=',', index_col=None):
@@ -38,9 +41,6 @@ def traverse_csv_file(file_path):
 
 if __name__ == '__main__':
     csv_list = traverse_csv_file("./order")
-
-    on_list = [['create_date', 'operate_date'], 'price', 'product',
-               ['province', 'city'], ['channel', 'store']]
 
     tmp_df = merge_csv(csv_list[0], csv_list[1], on=on_list[0])
     first_df = merge_csv(tmp_df, csv_list[2], on=on_list[1])

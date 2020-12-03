@@ -271,3 +271,4 @@ pay_from_list = ['支付宝', '微信', '银联', '其他']
 is_appraise_list = ['未点评', '已点评']
 appraise_level_list = ['一星', '两星', '三星', '四星', '五星']
 deliver_companies = ['中通', '圆通', '顺丰', 'EMS', '韵达', '申通', '百世汇通', '其他']
+

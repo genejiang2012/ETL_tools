@@ -13,7 +13,8 @@ import my_field
 #               'discount', 'actual_payment', 'province', 'city', 'address',
 #               'create_time']
 
-BASIC_LIST = ['id', 'name', 'phone_number', 'store', 'channel', 'province',
+BASIC_LIST = ['id', 'name', 'phone_number', 'store', 'channel', 'department',
+              'center', 'group', 'brand', 'province',
               'city', 'address', 'create_date', 'operate_date', 'product',
               'order_price', 'discount', 'actual_payment']
 
@@ -26,11 +27,15 @@ class DataFaker:
 
         self.fields = fields
         self.store = my_field.STORE_LIST
-        self.channel = my_field.CHANNEL_LIST
+        self.channel = my_field.CHANNEL_LIST_MENGNIU
         self.product = my_field.PRODUCT_LIST
         self.province = my_field.PROVINCE_LIST
         self.country = my_field.COUNTRY_LIST
         self.province_city = my_field.PROVINCE_CITY_LIST
+        self.department = my_field.DEPARTMENT_LIST
+        self.center = my_field.CENTER_LIST
+        self.group = my_field.GROUP_LIST
+        self.brand = my_field.BRAND_LIST
 
         self.faker_obj = faker.Faker('zh_CN')
 
@@ -51,6 +56,18 @@ class DataFaker:
                 elif field == 'store':
                     data[field] = self.store[
                         random.randint(0, len(self.store) - 1)]
+                elif field == 'department':
+                    data[field] = self.department[
+                        random.randint(0, len(self.department) - 1)]
+                elif field == 'center':
+                    data[field] = self.center[
+                        random.randint(0, len(self.center) - 1)]
+                elif field == 'group':
+                    data[field] = self.group[
+                        random.randint(0, len(self.group) - 1)]
+                elif field == 'brand':
+                    data[field] = self.brand[
+                        random.randint(0, len(self.brand) - 1)]
                 elif field == 'create_date':
                     data[field] = local_time.strftime('%Y-%m-%d')
                 elif field == 'operate_date':
@@ -84,7 +101,7 @@ class DataFaker:
 
         return data
 
-    def make_fakes(self, number, csv_name='mock_data.csv'):
+    def make_fakes(self, number, csv_name='mock_data_1w.csv'):
         """Create multiple fake records that will be output as a pandas
         dataframe.
         num_fakes : int
@@ -103,7 +120,8 @@ class DataFaker:
 
 if __name__ == '__main__':
     local_faker = DataFaker()
-    local_faker.make_fakes(50000)
+    local_faker.make_fakes(150000, 'mock_mengniu.csv')
+    print('Done')
 
     # cpus = mp.cpu_count()
     #

@@ -1,7 +1,7 @@
 import csv
 
 
-def create_sql_file(field_file, sql_file="test.sql", tbl_name=("test", "订单")):
+def create_sql_file(field_file, sql_file="test2.sql", tbl_name=("test", "订单")):
     with open(field_file, 'r', encoding="UTF-8") as f_reader, \
             open(sql_file, 'w') as f_writer:
         csv_file = csv.reader(f_reader)
@@ -24,4 +24,5 @@ def create_sql_file(field_file, sql_file="test.sql", tbl_name=("test", "订单")
         f_writer.write(total_line)
 
 
-create_sql_file("field.csv", tbl_name=("order_analysis", "订单"))
+create_sql_file("field.csv",
+                tbl_name=("order_analysis_mengniu", "order_analysis_mengniu"))

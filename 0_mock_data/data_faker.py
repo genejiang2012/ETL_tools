@@ -8,13 +8,14 @@ import time
 import faker
 import my_data
 
-# BASIC_LIST = ['order_id', 'ssn', 'phone_number', 'open_id', 'ipv4', 'IDFA', 'app'
-#               'IMEI', 'genders', 'email', 'province', 'city', 'address', 'job',
-#               'date', 'month', 'order_price', 'discount', 'actual_payment']
+BASIC_LIST = ['order_id', 'ssn', 'phone_number', 'open_id', 'ipv4', 'IDFA',
+              'app', 'IMEI', 'genders', 'email', 'province', 'city', 'address',
+              'job',
+              'date', 'month', 'order_price', 'discount', 'actual_payment']
 
 
-BASIC_LIST = ['ssn', 'phone_number', 'ipv4', 'app', 'genders', 'province',
-              'city', 'date', 'month', 'counter']
+# BASIC_LIST = ['ssn', 'phone_number', 'ipv4', 'app', 'genders', 'province',
+#               'city', 'date', 'month', 'counter']
 
 
 class DataFaker():
@@ -113,18 +114,19 @@ class DataFaker():
 
 if __name__ == '__main__':
     local_faker = DataFaker()
-    cpus = mp.cpu_count()
+    local_faker.make_fakes(50000, "order1.csv")
+    # cpus = mp.cpu_count()
 
-    total = int(sys.argv[1])
-    page_size = int(sys.argv[2])
-    csv_name = sys.argv[3]
-
-    print("start")
-    start_time = time.time()
-    pool = mp.Pool((int(total) // int(page_size)) + 1)
-    for idx, item in enumerate(range(0, total, page_size)):
-        pool.apply_async(local_faker.make_fakes, args=(page_size, csv_name))
-    pool.close()
-    pool.join()
-    end_time = time.time()
-    print("Done, but cost {}s".format(end_time - start_time))
+    # total = int(sys.argv[1])
+    # page_size = int(sys.argv[2])
+    # csv_name = sys.argv[3]
+    #
+    # print("start")
+    # start_time = time.time()
+    # pool = mp.Pool((int(total) // int(page_size)) + 1)
+    # for idx, item in enumerate(range(0, total, page_size)):
+    #     pool.apply_async(local_faker.make_fakes, args=(page_size, csv_name))
+    # pool.close()
+    # pool.join()
+    # end_time = time.time()
+    # print("Done, but cost {}s".format(end_time - start_time))

@@ -8,10 +8,13 @@ import time
 import faker
 import my_data
 
-BASIC_LIST = ['order_id', 'ssn', 'phone_number', 'open_id', 'ipv4', 'IDFA',
-              'app', 'IMEI', 'genders', 'email', 'province', 'city', 'address',
-              'job',
-              'date', 'month', 'order_price', 'discount', 'actual_payment']
+BASIC_LIST1 = ['order_id', 'ssn', 'phone_number', 'open_id', 'ipv4', 'IDFA',
+               'app', 'IMEI', 'genders', 'email', 'province', 'city', 'address',
+               'job',
+               'date', 'month', 'order_price', 'discount', 'actual_payment']
+
+BASIC_LIST = ['open_id', 'app_id', 'genders', 'province', 'city', 'start_date',
+              'end_date']
 
 
 # BASIC_LIST = ['ssn', 'phone_number', 'ipv4', 'app', 'genders', 'province',
@@ -57,8 +60,9 @@ class DataFaker():
                         random.randint(0, 99))
                 elif field == 'genders':
                     data[field] = self.genders[random.randint(0, 2)]
-                elif field == 'app':
-                    data[field] = self.app[random.randint(0, len(self.app) - 1)]
+                elif field == 'app_id':
+                    data[field] = "gh_{}".format(
+                        self.app[random.randint(0, len(self.app) - 1)])
                 elif field == 'open_id':
                     data[field] = "".join(
                         random.sample(string.ascii_letters + string.digits, 28))
@@ -86,6 +90,14 @@ class DataFaker():
                     data['province'] = province
                     data[field] = self.province_city[province][
                         random.randint(0, length - 1)]
+                elif field == 'start_date':
+                    data[field] = self.faker_obj.date_time_between(
+                        start_date='-400d', end_date='-200d')
+                    print(data[field])
+                elif field == 'end_date':
+                    data[field] = self.faker_obj.date_time_between(
+                        start_date='-200d', end_date='now')
+                    print(data[field])
                 else:
                     x = getattr(self.faker_obj, field)
                     data[field] = x()
@@ -114,7 +126,7 @@ class DataFaker():
 
 if __name__ == '__main__':
     local_faker = DataFaker()
-    local_faker.make_fakes(50000, "order1.csv")
+    local_faker.make_fakes(50000, "wechat_fans.csv")
     # cpus = mp.cpu_count()
 
     # total = int(sys.argv[1])

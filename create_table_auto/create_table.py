@@ -3,9 +3,9 @@ import csv
 from loguru import logger
 
 
-def create_sql_file(field_file, sql_file="test3.sql", tbl_name=("test", "订单")):
+def create_sql_file(field_file, sql_file="all_sql.sql", tbl_name=("test", "订单")):
     with open(field_file, 'r', encoding="UTF-8") as f_reader, \
-            open(sql_file, 'w') as f_writer:
+            open(sql_file, 'a') as f_writer:
         csv_file = csv.reader(f_reader)
 
         local_tbl_name = tbl_name[0]
@@ -31,4 +31,4 @@ def create_sql_file(field_file, sql_file="test3.sql", tbl_name=("test", "订单"
 
 
 create_sql_file("field.csv",
-                tbl_name=("dim_campign_tracking", "dim_campign_tracking"))
+                tbl_name=("channel", "channel"))

@@ -4,6 +4,7 @@ import random
 import string
 import sys
 import time
+from datetime import datetime
 
 import faker
 import my_data
@@ -13,7 +14,7 @@ BASIC_LIST1 = ['order_id', 'ssn', 'phone_number', 'open_id', 'ipv4', 'IDFA',
                'job',
                'date', 'month', 'order_price', 'discount', 'actual_payment']
 
-BASIC_LIST = ['open_id', 'app_id', 'genders', 'province', 'city', 'start_date',
+BASIC_LIST = ['open_id', 'app_id', 'name', 'genders', 'province', 'city', 'start_date',
               'end_date']
 
 
@@ -91,12 +92,14 @@ class DataFaker():
                     data[field] = self.province_city[province][
                         random.randint(0, length - 1)]
                 elif field == 'start_date':
-                    data[field] = self.faker_obj.date_time_between(
-                        start_date='-400d', end_date='-200d')
+                    data[field] = self.faker_obj.date_between_dates(
+                        date_start=datetime(2019, 1, 1),
+                        date_end=datetime(2021, 2, 11))
                     print(data[field])
                 elif field == 'end_date':
-                    data[field] = self.faker_obj.date_time_between(
-                        start_date='-200d', end_date='now')
+                    data[field] = self.faker_obj.date_between_dates(
+                        date_start=datetime(2021, 2, 12),
+                        date_end=datetime(2021, 5, 31))
                     print(data[field])
                 else:
                     x = getattr(self.faker_obj, field)
